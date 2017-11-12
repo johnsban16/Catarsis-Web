@@ -4,7 +4,10 @@ import Home from '@/components/Home'
 import Chat from '@/components/Chat/Chat'
 import Meditations from '@/components/Meditations/Meditations'
 import Diary from '@/components/Diary/Diary'
-import Login from '@/components/Login/Login'
+import DiaryEntry from '@/components/Diary/Entry'
+import AddEntry from '@/components/Diary/AddEntry'
+import Login from '@/components/User/Login'
+import Signup from '@/components/User/Signup'
 Vue.use(Router)
 
 export default new Router({
@@ -30,10 +33,25 @@ export default new Router({
       component: Diary
     },
     {
+      path: '/Entry/New',
+      name: 'AddEntry',
+      component: AddEntry
+    },
+    {
+      path: '/Entry/:id',
+      name: 'Entry',
+      component: DiaryEntry
+    },
+    {
       path: '/Login',
       name: 'Login',
       component: Login
-    }
+    },
+    {
+      path: '/Signup',
+      name: 'Signup',
+      component: Signup
+    },
   ],
   mode:'history'
 })

@@ -2,9 +2,9 @@
   <v-app>
     <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
     <v-navigation-drawer temporary light v-model="sideNav">
-    <v-toolbar flat>
+    <v-toolbar color="blue lighten-1" flat>
       <v-list>
-        <v-list-tile>
+        <v-list-tile >
           <v-list-tile-title class="title">
             Catarsis
           </v-list-tile-title>
@@ -15,7 +15,6 @@
     <v-list dense class="pt-0">
       <v-list-tile v-for="item in menuItems" 
                   :key="item.title"
-                  router
                   :to="item.link">
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
@@ -28,7 +27,7 @@
   </v-navigation-drawer>
     <v-toolbar color="blue darken-1" dark >
       <v-toolbar-side-icon 
-      @click.native.stop="sideNav = !sideNav"
+      @click.stop="sideNav = !sideNav"
       class = "hidden-sm-and-up">
       </v-toolbar-side-icon>
       <v-toolbar-title>
@@ -40,7 +39,6 @@
       <v-toolbar-items class="hidden-xs-only">
           <v-btn flat v-for="item in menuItems" 
                 :key="item.title"
-                router
                 :to="item.link">
             <v-icon left>{{ item.icon }}</v-icon>
             {{ item.title }}
@@ -50,9 +48,10 @@
     <main>
       <router-view></router-view>
     </main>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
+    <v-footer class="pa-3">
+      <v-spacer></v-spacer>
+      <div>© {{ new Date().getFullYear() }}</div>
+  </v-footer>
   </v-app>
 </template>
 
@@ -65,7 +64,8 @@
           {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
           {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
           {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
-          {icon: 'account_circle', title: 'Iniciar sesión', link:'/Login'}
+          {icon: 'lock_open', title: 'Iniciar sesión', link:'/Login'},
+          {icon: 'account_circle', title: 'Registrarse', link:'/Signup'}
         ]
       }
     }

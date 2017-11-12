@@ -34,7 +34,7 @@
                   <v-flex xs12 md4>
                     <v-card class="elevation-0 transparent">
                       <v-card-text class="text-xs-center">
-                        <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
+                        <v-icon x-large class="blue--text text--lighten-2">mood_bad</v-icon>
                       </v-card-text>
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline text-xs-center">Justificación del proyecto</div>
@@ -48,7 +48,7 @@
                   <v-flex xs12 md4>
                     <v-card class="elevation-0 transparent">
                       <v-card-text class="text-xs-center">
-                        <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
+                        <v-icon x-large class="blue--text text--lighten-2">search</v-icon>
                       </v-card-text>
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline">¿Qué significa Catarsis?</div>
@@ -63,7 +63,7 @@
                   <v-flex xs12 md4>
                     <v-card class="elevation-0 transparent">
                       <v-card-text class="text-xs-center">
-                        <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
+                        <v-icon x-large class="blue--text text--lighten-2">school</v-icon>
                       </v-card-text>
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline text-xs-center">Información del proyecto</div>

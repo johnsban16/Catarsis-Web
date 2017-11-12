@@ -7,6 +7,9 @@ import './stylus/main.styl'
 import App from './App'
 import router from './router'
 
+//Importar Firebase
+import * as firebase from 'firebase'
+
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false
@@ -15,5 +18,14 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  render: h => h(App)
+  render: h => h(App),
+  created(){
+    firebase.initializeApp({
+      apiKey: 'AIzaSyCYogMKxVUoh0tAPGW53TlTSFHLDdBlOuQ',
+      authDomain: 'catarsis-cr.firebaseapp.com',
+      databaseURL: 'https://catarsis-cr.firebaseio.com',
+      projectId: 'catarsis-cr',
+      storageBucket: ''
+    })
+  }
 })
