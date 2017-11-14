@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card>
-            <v-toolbar color="blue lighten-1" dark>
+            <v-toolbar flat color="blue lighten-1" dark>
           <v-toolbar-title>MI DIARIO</v-toolbar-title>
         </v-toolbar>
     <v-card-title>
@@ -78,3 +78,54 @@
       </v-layout>
     </v-container>
 </template>
+
+<script>
+export default {
+    data () {
+      return {
+        max25chars: (v) => v.length <= 25 || 'Input too long!',
+        tmp: '',
+        search: '',
+        pagination: {},
+        headers: [
+          {
+            text: 'Fecha',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+          { text: 'Situación', value: 'calories' }
+        ],
+        items: [
+          {
+            value: false,
+            name: 'Donut',
+            calories: 452,
+            fat: 25.0,
+            carbs: 51,
+            protein: 4.9,
+            sodium: 326,
+            calcium: '2%',
+            iron: '22%'
+          },
+          {
+            value: false,
+            name: 'KitKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            sodium: 54,
+            calcium: '12%',
+            iron: '6%'
+          }
+        ]
+      }
+    },
+    computed:{
+    entrys() {
+      return this.$store.getters.loadedEntrys
+    }
+  }
+  }
+</script>
