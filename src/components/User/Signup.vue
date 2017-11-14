@@ -13,7 +13,7 @@
                                             label="Nombre completo"
                                             id="nombre"
                                             v-model="nombre"
-                                            type="nombre"
+                                            type="String"
                                             required>
                                         </v-text-field>
                                     </v-flex>
@@ -25,7 +25,7 @@
                                             label="Correo electrónico"
                                             id="correo"
                                             v-model="correo"
-                                            type="corre"
+                                            type="String"
                                             required>
                                         </v-text-field>
                                     </v-flex>
@@ -86,8 +86,11 @@
             }
         },
         methods: {
+            // Lo que sucede cuando se clickea el botón de registrarse
             onRegistrarse (){
-
+                // Muestra en consola lo que metió el usuario
+                console.log({email: this.correo, password: this.password})
+                this.$store.dispatch('registrarUsuario', {correo: this.correo, password: this.password})
             }
         }
     }
