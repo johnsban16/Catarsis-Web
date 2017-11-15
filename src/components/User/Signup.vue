@@ -83,7 +83,17 @@
         computed:{
             compararPasswords(){
                 return this.password !== this.confirmPassword ? 'Las contraseñas no coinciden.' : ''
+            },
+            user(){
+                return this.$store.getters.user // Se refiere al user recién creado
             }
+        },
+        watch: {
+            user(value){
+                if(value !== null && value !== undefined){
+                    this.$router.push('/') // Si el usuario se registra exitosamente, regresar a la raíz
+                }
+            } // Lo agarra cada vez qu eel getter devuelve algo nuevo
         },
         methods: {
             // Lo que sucede cuando se clickea el botón de registrarse

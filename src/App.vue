@@ -59,14 +59,27 @@
   export default {
     data (){
       return{
-        sideNav: false,
-        menuItems: [
-          {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
-          {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
-          {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
+        sideNav: false
+      }
+    },
+    computed: { // Esto depende de la autenticación del usuario, cambia el menú según si estoy loggeado o no
+      menuItems(){ 
+        let menuItems = [ // Menú default para la gente no loggeada
           {icon: 'lock_open', title: 'Iniciar sesión', link:'/Login'},
           {icon: 'account_circle', title: 'Registrarse', link:'/Signup'}
         ]
+        if(this.userIsAuthenticated){ // Si el usuario está signeado, devolver todo menos registrarse y login más un logout
+          menuItems = [
+            {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
+            {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
+            {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
+            {icon: 'lock', title: 'Cerrar sesión', link:'/Logout'} // Crear esto
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated(){ // Función que devuelve si usuario está autenticado
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
   }

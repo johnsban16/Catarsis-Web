@@ -18,15 +18,7 @@ export const store = new Vuex.Store({
                 date: '2017-08-17'
             }
         ],
-        user: {
-            //cambiar por nombre de la base
-            name: 'Esteban Castillo',
-            //Cambiar por el id en la base
-            id: '0000',
-            //Aqui tiene que cargar las entradas
-            //del diario
-            Diary:['01'],
-        }
+        user: null // Default user
     },
     mutations:{
         setUser(state, payload){
@@ -41,13 +33,15 @@ export const store = new Vuex.Store({
                     user => {
                         const newUser = {
                             id: user.uid,
-                            Diary: []
+                            Diary: [] // Se crea un diario vacío
                         }
                         commit('setUser', newUser)
                     }
                 )
                 .catch(
-                    console.log(error)
+                    error => {
+                        console.log(error)
+                    }
                 )
         }
     },
@@ -63,6 +57,9 @@ export const store = new Vuex.Store({
                     return entry.id === entryID
                 })
             }
+        },
+        user(state){
+            return state.user
         }
 
     }
