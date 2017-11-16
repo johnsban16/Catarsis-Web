@@ -1,5 +1,10 @@
 <template>
     <v-container>
+        <v-layout row v-if="error">
+            <v-flex xs12 sm6 offset-sm3>
+                <app-alert @dismissed = "onDismissed" :text ="error.message"> </app-alert>
+            </v-flex>
+        </v-layout>  
         <v-layout>
             <v-flex xs12 sm6 offset-sm3>
                 <v-card>
@@ -86,6 +91,9 @@
             },
             user(){
                 return this.$store.getters.user // Se refiere al user recién creado
+            },
+            error(){
+                return this.$store.getters.error
             }
         },
         watch: {
@@ -101,6 +109,10 @@
                 // Muestra en consola lo que metió el usuario
                 console.log({email: this.correo, password: this.password})
                 this.$store.dispatch('registrarUsuario', {correo: this.correo, password: this.password})
+            },
+            onDismissed(){
+                console.log('Dismissed Alert')
+                this.$store.dispatch('clearError')
             }
         }
     }

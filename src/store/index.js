@@ -18,19 +18,35 @@ export const store = new Vuex.Store({
                 date: '2017-08-17'
             }
         ],
-        user: null // Default user
+        user: null, // Default user
+        loading: false,
+        error: null
     },
     mutations:{
         setUser(state, payload){
             state.user = payload
+        },
+        setLoading(state, payload){
+            state.loading = payload // Payload es true o false dependiendo de si estamos loading o no
+        },
+        setError(state, payload){
+            state.error = payload
+        },
+        clearError(state){
+            state.error = null
         }
     },
     actions:{
         registrarUsuario({commit}, payload){
             // Método de autenticación de Firebase
+            // Mientras registramos un usuario estamos en estado de loading
+            commit('setLoading', true)
+            commit('clearError')
             firebase.auth().createUserWithEmailAndPassword(payload.correo, payload.password)
                 .then(
                     user => {
+                        // Una vez que se tiene un usuario, ya no se está cargando
+                        commit('setLoading', false)                        
                         const newUser = {
                             id: user.uid,
                             Diary: [] // Se crea un diario vacío
@@ -40,14 +56,19 @@ export const store = new Vuex.Store({
                 )
                 .catch(
                     error => {
+                        commit('setLoading', false)     
+                        commit('setError', error)                        
                         console.log(error)
                     }
                 )
         },
         iniciarSesionUsuario({commit}, payload){
+            commit('setLoading', true)
+            commit('clearError')
             firebase.auth().signInWithEmailAndPassword(payload.correo, payload.password)
                 .then(
                     user => {
+                        commit('setLoading', false)                                                
                         const newUser = {
                             id: user.uid,
                             // Diary: [] // TODO: llenar el diario de pensamiento
@@ -57,9 +78,14 @@ export const store = new Vuex.Store({
                 )
                 .catch( // Handle errors
                     error => {
+                        commit('setLoading', false)     
+                        commit('setError', error)                                                
                         console.log(error)
                     }
                 )
+        },
+        clearError({commit}){
+            commit('clearError')
         }
     },
     getters:{
@@ -77,6 +103,12 @@ export const store = new Vuex.Store({
         },
         user(state){
             return state.user
+        },
+        loading(state){
+            return state.loading
+        },
+        error(state){
+            return state.error
         }
 
     }

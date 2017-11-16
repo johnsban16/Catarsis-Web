@@ -9,10 +9,13 @@ import router from './router'
 
 import { store } from './store'
 
+import AlertCmp from './components/Shared/Alert.vue'
+
 //Importar Firebase
 import * as firebase from 'firebase'
 
 Vue.use(Vuetify)
+Vue.component('app-alert', AlertCmp)
 
 Vue.config.productionTip = false
 
