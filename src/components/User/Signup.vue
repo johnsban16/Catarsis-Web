@@ -61,8 +61,11 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit">
+                                        <v-btn type="submit" :disabled="loading" :loading="loading">
                                             Registrarse
+                                            <span slot="loader" class="custom-loader">
+                                                <v-icon light>cached</v-icon>
+                                            </span>
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
@@ -94,6 +97,9 @@
             },
             error(){
                 return this.$store.getters.error
+            },
+            loading(){
+                return this.$store.getters.loading
             }
         },
         watch: {
