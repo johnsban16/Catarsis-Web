@@ -1,6 +1,6 @@
 # catarsis
 
-> Development of Web Applications curse's final project
+> Development of Web Applications course's final project
 
 ## Build Setup
 
