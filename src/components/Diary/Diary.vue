@@ -16,6 +16,7 @@
         v-model="search"
       ></v-text-field>
     </v-card-title>
+
     <v-data-table
         v-bind:headers="headers"
         v-bind:items="items"
@@ -67,11 +68,12 @@
         From {{ pageStart }} to {{ pageStop }}
       </template>
     </v-data-table>
+    
         <v-card-title>
-      <v-spacer></v-spacer>
-                <v-btn >
-                    Agregar entrada
-                </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn >
+              Agregar entrada
+            </v-btn>
             </v-card-title>
   </v-card>
       </v-flex>
@@ -91,35 +93,17 @@ export default {
           {
             text: 'Fecha',
             align: 'left',
+            sortable: true,
+            value: 'date'
+          },
+          { 
+            text: 'Situación',
+            align: 'left', 
             sortable: false,
-            value: 'name'
-          },
-          { text: 'Situación', value: 'calories' }
-        ],
-        items: [
-          {
-            value: false,
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            sodium: 326,
-            calcium: '2%',
-            iron: '22%'
-          },
-          {
-            value: false,
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            sodium: 54,
-            calcium: '12%',
-            iron: '6%'
+            value: 'situation' 
           }
-        ]
+        ],
+        
       }
     },
     computed:{
