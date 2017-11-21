@@ -71,7 +71,7 @@
     
         <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn >
+            <v-btn to="/Entry/new">
               Agregar entrada
             </v-btn>
             </v-card-title>
