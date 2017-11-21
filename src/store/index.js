@@ -23,6 +23,9 @@ export const store = new Vuex.Store({
         error: null
     },
     mutations:{
+        createEntry(state, payload){
+            state.loadedEntrys.push(payload)
+        },
         setUser(state, payload){
             state.user = payload
         },
@@ -37,6 +40,10 @@ export const store = new Vuex.Store({
         }
     },
     actions:{
+        // Crear entrada del diario
+        createEntry({commit}, payload){
+            
+        },
         registrarUsuario({commit}, payload){
             // Método de autenticación de Firebase
             // Mientras registramos un usuario estamos en estado de loading
