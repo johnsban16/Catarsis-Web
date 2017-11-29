@@ -42,6 +42,20 @@ export const store = new Vuex.Store({
     actions:{
         // Crear entrada del diario
         createEntry({commit}, payload){
+            const entry = {
+                title: payload.title,
+                description: payload.description,
+                emotions: payload.emotions,
+                anguish: payload.anguish,
+                distortions: payload.distortions,
+                thought: payload.thought,
+                challenge: payload.challenge,
+                results: payload.results,
+                newAnguish: payload.newAnguish,
+                date: payload.date
+            }
+            // TODO: Ir a firebase y almacenarla en la base
+            commit('createEntry',  entry)
             
         },
         registrarUsuario({commit}, payload){
