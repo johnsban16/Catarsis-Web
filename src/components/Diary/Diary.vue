@@ -33,34 +33,33 @@
               -->
 
               <v-flex
-                v-for="card in cards"
-                :key="card.title"
-                :id="card.id"
-                @click="onLoadEntry(card.id)"  
+                v-for="entry in entrys"
+                :key="entry.title"
+                :id="entry.id"
                 xs12
               >
                 <v-card>
                   <!-- Título --> 
                   <v-card-title primary-title>
                     <div>
-                      <h3 class="headline mb-0" v-text="card.title"></h3>
+                      <h3 class="headline mb-0" v-text="entry.title"></h3>
+                      <!-- Fecha -->
+                      <div>
+                        <span class="grey--text" v-text="entry.date"></span><br>
+                      </div>
                     </div>
                   </v-card-title>
 
                   <!-- Contenido -->
                   <v-card-text>
-                    <!-- Fecha -->
-                    <div>
-                      <span class="grey--text" v-text="card.date"></span><br>
-                    </div>
                     <!-- Texto -->
-                    <div v-text ="card.text"></div>
+                    <div>{{entry.text}}</div>
                   </v-card-text>
 
                   <!-- Opciones -->
                   <v-card-actions class="white">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary" to="Entry/"card.id>Ver</v-btn>
+                    <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn>
                     <v-btn flat color="primary">Editar</v-btn>
                     <v-btn flat color="primary">Borrar</v-btn>
                   </v-card-actions>
@@ -92,18 +91,6 @@ export default {
         tmp: '',
         search: '',
         pagination: {},
-        cards: [
-          { id: 1, title: 'Me siento triste', date: '10/05/2017', text: 'Es me siento triste porque blablablalbablablab y blablablalbalblabal' },
-          { id: 2, title: 'Me siento feliz', date: '16/07/2017', text: 'Located two hours south of Sydney in the Southern Highlands of New South Wales, ...' },
-          { id: 3, title: 'Me siento confundido', date: '13/06/2017', text: 'Hola' },
-          { id: 4, title: 'Me siento hambriendo', date: '13/06/2017', text: 'Hola' },
-        ],
-        items: [
-          {
-            date: '02-03-17',
-            thought: 'Me siento feliz porque fui a la verdulería y me compré unas pipas muy baratas.',
-            emotions: 'Feliz, ilusionado, alegre'
-          }]
       }
     },
     methods: {  
@@ -111,9 +98,10 @@ export default {
         this.$router.push('/Entry/' + id)
       }
     },
+    // Computed siempre nos da el state más reciente
     computed:{
-    entrys() {
-      return this.$store.getters.loadedEntrys
+      entrys() {
+        return this.$store.getters.loadedEntrys // Me devuelve las entrys actuales del store
     }
   }
   }

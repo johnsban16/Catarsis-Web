@@ -6,19 +6,41 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state:{
-        loadedEntrys:[
-            {
-                id: 'id1',
-                name: 'entrada',
-                date: '2017-07-17'
+        loadedEntrys:[ // Entradas de Diario que se cargan de firebase
+            { 
+                id: 1, 
+                title: 'Me siento triste', 
+                date: '10/05/2017', 
+                text: 'Es me siento triste porque blablablalbablablab y blablablalbalblabal' 
             },
-            {
-                id: 'id2',
-                name: 'entrada2',
-                date: '2017-08-17'
+            { 
+                id: 2, 
+                title: 'Me siento feliz', 
+                date: '16/07/2017', 
+                text: 'Located two hours south of Sydney in the Southern Highlands of New South Wales, ...' 
+            },
+            { 
+                id: 3, 
+                title: 'Me siento confundido', 
+                date: '13/06/2017', 
+                text: 'Hola' },
+            { 
+                id: 4, 
+                title: 'Me siento hambriento', 
+                date: '13/06/2017', 
+                text: 'Hola' 
+            },
+            { 
+                id: 5, 
+                title: 'El otro día vi a una persona que hace rato no me topaba', 
+                date: '13/06/2017', 
+                text: 'Iba caminando por la calle y me topé a esta persona, no quería verla. Igual ahí estaba, yo no podía hacer nada al respecto. Nunca he podido. Nunca podré' 
             }
         ],
-        user: null, // Default user
+        user: {
+            id: 'kdlfjg345',
+            diaryEntrys :['ksjdfhskdjf4']
+        }, // Default user
         loading: false,
         error: null
     },
@@ -109,11 +131,13 @@ export const store = new Vuex.Store({
         }
     },
     getters:{
+        // Devolver todas las entrys del diario
         loadedEntrys(state){
             return state.loadedEntrys.sort((entryA, entryB) => {
-                return entryA.date > entryB.date
+                return entryA.date < entryB.date
             })
         },
+        // Devolver solo una entry que se busca por id
         loadedEntry(state){
             return (entryID) =>{
                 return state.loadedEntrys.find((entry) => {
