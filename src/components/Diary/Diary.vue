@@ -4,7 +4,8 @@
         <v-flex xs12>
           <!-- HEADER -->
           <v-card>
-            <v-toolbar flat color="blue lighten-1" dark>
+
+            <v-toolbar flat color="blue lighten-1" dark >
             <v-toolbar-title>Diario de pensamiento</v-toolbar-title></v-toolbar>
             <v-card-title>
               <v-spacer></v-spacer>
@@ -34,32 +35,32 @@
               <v-flex
                 v-for="card in cards"
                 :key="card.title"
-                xs4
+                :id="card.id"
+                @click="onLoadEntry(card.id)"  
+                xs12
               >
                 <v-card>
-                  <!--
-                  <v-card-media
-                    :src="card.src"
-                    height="200px"
-                  >
-                  -->
-
                   <!-- Título --> 
                   <v-card-title primary-title>
-                  <div>
-                  <h3 class="headline mb-0" v-text="card.title"></h3>
-                  </div>
+                    <div>
+                      <h3 class="headline mb-0" v-text="card.title"></h3>
+                    </div>
                   </v-card-title>
 
                   <!-- Contenido -->
                   <v-card-text>
-                    Contenido del pensamiento (TODO: bindear a la variable)
+                    <!-- Fecha -->
+                    <div>
+                      <span class="grey--text" v-text="card.date"></span><br>
+                    </div>
+                    <!-- Texto -->
+                    <div v-text ="card.text"></div>
                   </v-card-text>
 
                   <!-- Opciones -->
                   <v-card-actions class="white">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary">Ver</v-btn>
+                    <v-btn flat color="primary" to="Entry/"card.id>Ver</v-btn>
                     <v-btn flat color="primary">Editar</v-btn>
                     <v-btn flat color="primary">Borrar</v-btn>
                   </v-card-actions>
@@ -68,7 +69,7 @@
               </v-flex>
               </v-layout>
             </v-container>
-                
+
             <!-- FOOTER (AGREGAR ENTRADA)-->
             <v-card-title>
               <v-spacer></v-spacer>
@@ -91,30 +92,11 @@ export default {
         tmp: '',
         search: '',
         pagination: {},
-        headers: [
-          {
-            text: 'Fecha',
-            align: 'left',
-            sortable: true,
-            value: 'date'
-          },
-          { 
-            text: 'Pensamiento',
-            align: 'left', 
-            sortable: false,
-            value: 'entry' 
-          },
-          { 
-            text: 'Emociones',
-            align: 'left', 
-            sortable: false,
-            value: 'emotions' 
-          }
-        ],
         cards: [
-          { title: 'Me sentí triste', flex: 4 },
-          { title: 'Me sentí feliz', flex: 4 },
-          { title: 'Me sentí confundido', flex: 4 }
+          { id: 1, title: 'Me siento triste', date: '10/05/2017', text: 'Es me siento triste porque blablablalbablablab y blablablalbalblabal' },
+          { id: 2, title: 'Me siento feliz', date: '16/07/2017', text: 'Located two hours south of Sydney in the Southern Highlands of New South Wales, ...' },
+          { id: 3, title: 'Me siento confundido', date: '13/06/2017', text: 'Hola' },
+          { id: 4, title: 'Me siento hambriendo', date: '13/06/2017', text: 'Hola' },
         ],
         items: [
           {
@@ -122,6 +104,11 @@ export default {
             thought: 'Me siento feliz porque fui a la verdulería y me compré unas pipas muy baratas.',
             emotions: 'Feliz, ilusionado, alegre'
           }]
+      }
+    },
+    methods: {  
+      onLoadEntry(id){
+        this.$router.push('/Entry/' + id)
       }
     },
     computed:{

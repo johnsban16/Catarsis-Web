@@ -181,7 +181,7 @@
                                     <v-card-text>{{newAnguish}}</v-card-text>
                                 </v-layout>
                         <v-btn @click.native="e1 = 2">Atrás</v-btn>
-                        <v-btn type="submit" :disabled="loading" :loading="loading" color="primary">Guardar</v-btn>
+                        <v-btn type="submit" :disabled="loading" :loading="loading" color="primary" to="/Diary">Guardar</v-btn>
                     </v-stepper-content>
                     </v-stepper>   
                 </form>     
@@ -194,6 +194,7 @@
   export default {
     data () {
         return {
+            id: 1,
             title:'',
             description:'',
             thought:'',
@@ -255,6 +256,7 @@
             // Se crea un objeto de javascript donde se almacena todo lo que está almacenado en data
             // esto se pasa al store
             const entryData = {
+                id: this.id,
                 title: this.title,
                 description: this.description,
                 emotions: this.emotions,
