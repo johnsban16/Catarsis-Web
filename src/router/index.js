@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Chat from '@/components/Chat/Chat'
 import Meditations from '@/components/Meditations/Meditations'
+import MeditationsRelax from '@/components/Meditations/Meditations-Relax'
 import Diary from '@/components/Diary/Diary'
 import DiaryEntry from '@/components/Diary/Entry'
 import AddEntry from '@/components/Diary/AddEntry'
@@ -23,9 +24,14 @@ export default new Router({
       component: Chat
     },
     {
-      path: '/Mediations',
+      path: '/Meditations',
       name: 'Meditations',
       component: Meditations
+    },
+    {
+      path: '/Meditations/Relax',
+      name: '/Meditations/Relax',
+      component: MeditationsRelax
     },
     {
       path: '/Diary',

@@ -11,11 +11,16 @@ import { store } from './store'
 
 import AlertCmp from './components/Shared/Alert.vue'
 
+import Aplayer from 'aplayer'
+import VueAplayer from 'vue-aplayer'
+
 //Importar Firebase
 import * as firebase from 'firebase'
 
 Vue.use(Vuetify)
+Vue.use(VueAplayer)
 Vue.component('app-alert', AlertCmp)
+Vue.component('a-player', VueAplayer)
 
 Vue.config.productionTip = false
 
@@ -31,7 +36,7 @@ new Vue({
       authDomain: 'catarsis-cr.firebaseapp.com',
       databaseURL: 'https://catarsis-cr.firebaseio.com',
       projectId: 'catarsis-cr',
-      storageBucket: ''
-    })
+      storageBucket: 'catarsis-cr.appspot.com'
+    })  
   }
 })

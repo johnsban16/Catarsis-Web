@@ -130,6 +130,11 @@ export const store = new Vuex.Store({
         },
         error(state){
             return state.error
+        },
+        meditationData(){
+            var storageRef = firebase.storage().ref();
+            var meditation = storageRef.child('Free Your Mind - Letting Go.mp3');
+            return meditation
         }
 
     }
