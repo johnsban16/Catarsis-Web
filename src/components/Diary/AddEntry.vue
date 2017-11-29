@@ -93,7 +93,7 @@
                                 </v-layout>
                                 <v-layout row >
                                     <v-dialog v-model="dialogDistortions" scrollable>
-                                        <v-btn color="primary" dark slot="activator">Distorciones cognitivas</v-btn>
+                                        <v-btn color="primary" dark slot="activator">Distorsiones cognitivas</v-btn>
                                         <v-card>
                                             <v-card-title>Seleccione las distociones que siente en su pensamiento</v-card-title>
                                             <v-divider></v-divider>

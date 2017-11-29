@@ -68,10 +68,7 @@
               </v-flex>
               </v-layout>
             </v-container>
-
-          
-
-    
+                
             <!-- FOOTER (AGREGAR ENTRADA)-->
             <v-card-title>
               <v-spacer></v-spacer>
@@ -102,18 +99,29 @@ export default {
             value: 'date'
           },
           { 
-            text: 'Situación',
+            text: 'Pensamiento',
             align: 'left', 
             sortable: false,
-            value: 'situation' 
+            value: 'entry' 
+          },
+          { 
+            text: 'Emociones',
+            align: 'left', 
+            sortable: false,
+            value: 'emotions' 
           }
         ],
         cards: [
-        { title: 'Me sentí triste', flex: 4 },
-        { title: 'Me sentí feliz', flex: 4 },
-        { title: 'Me sentí confundido', flex: 4 }
-      ]
-        
+          { title: 'Me sentí triste', flex: 4 },
+          { title: 'Me sentí feliz', flex: 4 },
+          { title: 'Me sentí confundido', flex: 4 }
+        ],
+        items: [
+          {
+            date: '02-03-17',
+            thought: 'Me siento feliz porque fui a la verdulería y me compré unas pipas muy baratas.',
+            emotions: 'Feliz, ilusionado, alegre'
+          }]
       }
     },
     computed:{
