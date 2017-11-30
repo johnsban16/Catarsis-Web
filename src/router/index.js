@@ -45,7 +45,7 @@ export default new Router({
     },
     {
       path: '/Entry/:id',
-      name: 'Entry',
+      name: 'DiaryEntry',
       props: true,
       component: DiaryEntry
     },

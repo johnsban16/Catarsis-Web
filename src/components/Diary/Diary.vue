@@ -53,13 +53,14 @@
                   <!-- Contenido -->
                   <v-card-text>
                     <!-- Texto -->
-                    <div>{{entry.text}}</div>
+                    <div>{{entry.description}}</div>
                   </v-card-text>
 
                   <!-- Opciones -->
                   <v-card-actions class="white">
                     <v-spacer></v-spacer>
-                    <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn>
+                    <!-- <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn> -->
+                    <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
                     <v-btn flat color="primary">Editar</v-btn>
                     <v-btn flat color="primary">Borrar</v-btn>
                   </v-card-actions>
@@ -75,6 +76,7 @@
               <v-btn to="/Entry/new">
                 Agregar entrada
               </v-btn>
+
             </v-card-title>
           </v-card>
 
@@ -102,7 +104,10 @@ export default {
     computed:{
       entrys() {
         return this.$store.getters.loadedEntrys // Me devuelve las entrys actuales del store
-    }
+      },
+      entryPrueba() {
+        return this.$store.getters.loadedEntry('2')
+      }
   }
-  }
+}
 </script>
