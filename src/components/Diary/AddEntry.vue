@@ -253,7 +253,8 @@
     methods:{
         onCreateEntry(){
             // Debug
-            console.log({id: this.id,
+            console.log({
+                id: this.id,
                 title: this.title,
                 description: this.description,
                 emotions: this.emotions,
@@ -269,7 +270,7 @@
             // esto se pasa al store
 
             const entryData = {
-                id: this.id,
+                id: '23',
                 title: this.title,
                 description: this.description,
                 emotions: this.emotions,

@@ -73,6 +73,7 @@ export const store = new Vuex.Store({
         // Crear entrada del diario
         createEntry({commit}, payload){
             const entry = {
+                id: payload.id,
                 title: payload.title,
                 description: payload.description,
                 emotions: payload.emotions,
