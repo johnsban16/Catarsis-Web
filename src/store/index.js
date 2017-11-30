@@ -10,24 +10,24 @@ export const store = new Vuex.Store({
             { 
                 id: 'abc123', 
                 title: 'Me siento triste', 
-                date: '10/05/2017', 
+                date: new Date(),
                 description: 'Es me siento triste porque blablablalbablablab y blablablalbalblabal'
             },
             { 
                 id: 'df2sdf', 
                 title: 'Me siento feliz', 
-                date: '16/07/2017', 
+                date: new Date(),
                 description: 'Located two hours south of Sydney in the Southern Highlands of New South Wales, ...' 
             },
             { 
                 id: 'df34sdfs', 
                 title: 'Me siento confundido', 
-                date: '13/06/2017', 
+                date: new Date(),
                 description: 'Hola' },
             { 
                 id: 'df4sdfsdf', 
                 title: 'Me siento hambriento', 
-                date: '13/06/2017', 
+                date: new Date(), 
                 description: 'Hola' 
             },
             { 

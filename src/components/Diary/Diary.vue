@@ -45,7 +45,7 @@
                       <h3 class="headline mb-0" v-text="entry.title"></h3>
                       <!-- Fecha -->
                       <div>
-                        <span class="grey--text" v-text="entry.date"></span><br>
+                        <span class="grey--text"> {{entry.date | date}}</span><br>
                       </div>
                     </div>
                   </v-card-title>

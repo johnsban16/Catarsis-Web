@@ -14,11 +14,14 @@ import AlertCmp from './components/Shared/Alert.vue'
 import Aplayer from 'aplayer'
 import VueAplayer from 'vue-aplayer'
 
+import DateFilter from './filters/date'
+
 //Importar Firebase
 import * as firebase from 'firebase'
 
 Vue.use(Vuetify)
 Vue.use(VueAplayer)
+Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
 Vue.component('a-player', VueAplayer)
 

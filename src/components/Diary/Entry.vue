@@ -23,7 +23,7 @@
                 <v-expansion-panel-content>
                     <div slot="header">Fecha</div>
                     <v-card>
-                        <v-card-text class="grey lighten-3">{{entry.date}}</v-card-text>
+                        <v-card-text class="grey lighten-3">{{entry.date | date}}</v-card-text>
                     </v-card>
                 </v-expansion-panel-content>
 
