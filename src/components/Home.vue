@@ -144,7 +144,7 @@
                         <v-icon class="blue--text text--lighten-2">email</v-icon>
                       </v-list-tile-action>
                       <v-list-tile-content>
-                        <v-list-tile-title>edvs5@gmail.com</v-list-tile-title>
+                        <v-list-tile-title>eduardo.solorzano_v@ucr.ac.cr</v-list-tile-title>
                       </v-list-tile-content>
                     </v-list-tile>
                   </v-list>

@@ -2,7 +2,7 @@
     <v-container>
         <v-flex xs12>
             <div>
-                <form @submit.prevent="onSavedEntry">
+                <form @submit.prevent="onCreateEntry">
                     <v-stepper v-model="e1">
                     <v-stepper-header>
                         <v-stepper-step step="1" :complete="e1 > 1">Descripción</v-stepper-step>
@@ -28,8 +28,8 @@
                                     ></v-text-field>
                             </v-flex>
                         </v-layout>
-                        <v-btn color="primary" @click.native="e1 = 2">Siguiente</v-btn>
                         <v-btn to="/Diary" >Cancelar</v-btn>
+                        <v-btn color="primary" @click.native="e1 = 2">Siguiente</v-btn>
                     </v-stepper-content>
                     <v-stepper-content step="2">
                         <v-layout row>
@@ -93,7 +93,7 @@
                                 </v-layout>
                                 <v-layout row >
                                     <v-dialog v-model="dialogDistortions" scrollable>
-                                        <v-btn color="primary" dark slot="activator">Distorciones cognitivas</v-btn>
+                                        <v-btn color="primary" dark slot="activator">Distorsiones cognitivas</v-btn>
                                         <v-card>
                                             <v-card-title>Seleccione las distociones que siente en su pensamiento</v-card-title>
                                             <v-divider></v-divider>
@@ -135,8 +135,8 @@
                                 </v-layout>
                             </v-flex>
                         </v-layout>
-                        <v-btn color="primary" @click.native="e1 = 3">Siguiente</v-btn>
                         <v-btn @click.native="e1 = 1">Atrás</v-btn>
+                        <v-btn color="primary" @click.native="e1 = 3">Siguiente</v-btn>
                     </v-stepper-content>
                     <v-stepper-content step="3">
                         <v-layout row>
@@ -194,6 +194,7 @@
   export default {
     data () {
         return {
+            id: '',
             title:'',
             description:'',
             thought:'',
@@ -250,9 +251,41 @@
 
     },
     methods:{
-        onSavedEntry(){
-            console.log({title: this.title, description: this.description, emotions: this.emotions})
+        onCreateEntry(){
+            // Debug
+            console.log({
+                id: this.id,
+                title: this.title,
+                description: this.description,
+                emotions: this.emotions,
+                anguish: this.anguish,
+                distortions: this.distortions,
+                thought: this.thought,
+                challenge: this.challenge,
+                results: this.results,
+                newAnguish: this.newAnguish,
+                date: new Date()}
+            )
+            // Se crea un objeto de javascript donde se almacena todo lo que está almacenado en data
+            // esto se pasa al store
 
+            const entryData = {
+                id: '23',
+                title: this.title,
+                description: this.description,
+                emotions: this.emotions,
+                anguish: this.anguish,
+                distortions: this.distortions,
+                thought: this.thought,
+                challenge: this.challenge,
+                results: this.results,
+                newAnguish: this.newAnguish,
+                date: new Date()
+            }
+            // Aquí se llama al método para meter la Entry del usuario
+            this.$store.dispatch('createEntry', entryData)
+            // Regresa al diario
+            this.$router.push('/Diary')
         }
     }
   }

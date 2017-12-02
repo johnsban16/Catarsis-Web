@@ -1,82 +1,86 @@
 <template>
     <v-container>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <v-card>
-            <v-toolbar flat color="blue lighten-1" dark>
-          <v-toolbar-title>MI DIARIO</v-toolbar-title>
-        </v-toolbar>
-    <v-card-title>
-      <v-spacer></v-spacer>
-      <v-text-field
-        append-icon="search"
-        label="Buscar"
-        single-line
-        hide-details
-        v-model="search"
-      ></v-text-field>
-    </v-card-title>
+      <v-layout column >
+        <v-flex xs12>
+          <!-- HEADER -->
+          <v-card>
 
-    <v-data-table
-        v-bind:headers="headers"
-        v-bind:items="items"
-        v-bind:search="search"
-      >
-      <template slot="items" scope="props">
-        <td>
-          <v-edit-dialog
-            lazy
-          > {{ props.item.name }}
-            <v-text-field
-              slot="input"
-              label="Edit"
-              v-model="props.item.name"
-              single-line
-              counter
-              :rules="[max25chars]"
-            ></v-text-field>
-          </v-edit-dialog>
-        </td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
-        <td class="text-xs-right">{{ props.item.sodium }}</td>
-        <td class="text-xs-right">{{ props.item.calcium }}</td>
-        <td class="text-xs-right">
-          <v-edit-dialog
-            @open="tmp = props.item.iron"
-            @save="props.item.iron = tmp || props.item.iron"
-            large
-            lazy
-          >
-            <div>{{ props.item.iron }}</div>
-            <div slot="input" class="mt-3 title">Update Iron</div>
-            <v-text-field
-              slot="input"
-              label="Edit"
-              v-model="tmp"
-              single-line
-              counter
-              autofocus
-              :rules="[max25chars]"
-            ></v-text-field>
-          </v-edit-dialog>
-        </td>
-      </template>
-      <template slot="pageText" scope="{ pageStart, pageStop }">
-        From {{ pageStart }} to {{ pageStop }}
-      </template>
-    </v-data-table>
-    
-        <v-card-title>
-            <v-spacer></v-spacer>
-            <v-btn to="/Entry/new">
-              Agregar entrada
-            </v-btn>
+            <v-toolbar flat color="blue lighten-1" dark >
+            <v-toolbar-title>Diario de pensamiento</v-toolbar-title></v-toolbar>
+            <v-card-title>
+              <v-spacer></v-spacer>
+              <v-text-field
+                append-icon="search"
+                label="Buscar"
+                single-line
+                hide-details
+                v-model="search"
+              ></v-text-field>
             </v-card-title>
-  </v-card>
-      </v-flex>
+
+            <!-- PENSAMIENTOS -->
+
+            <v-container fluid grid-list-md class="grey lighten-4">
+              <v-layout row wrap>
+              <!-- Itera sobre la lista de pensamientos del usuario -->
+
+              <!-- Bindear la variable al flex
+              <v-flex
+                v-bind="{ [`xs${card.flex}`]: true }"
+                v-for="card in cards"
+                :key="card.title"
+              >
+              -->
+
+              <v-flex
+                v-for="entry in entrys"
+                :key="entry.title"
+                :id="entry.id"
+                xs12
+              >
+                <v-card>
+                  <!-- Título --> 
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline mb-0" v-text="entry.title"></h3>
+                      <!-- Fecha -->
+                      <div>
+                        <span class="grey--text"> {{entry.date | date}}</span><br>
+                      </div>
+                    </div>
+                  </v-card-title>
+
+                  <!-- Contenido -->
+                  <v-card-text>
+                    <!-- Texto -->
+                    <div>{{entry.description}}</div>
+                  </v-card-text>
+
+                  <!-- Opciones -->
+                  <v-card-actions class="white">
+                    <v-spacer></v-spacer>
+                    <!-- <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn> -->
+                    <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
+                    <v-btn flat color="primary">Editar</v-btn>
+                    <v-btn flat color="primary">Borrar</v-btn>
+                  </v-card-actions>
+
+                </v-card>
+              </v-flex>
+              </v-layout>
+            </v-container>
+
+            <!-- FOOTER (AGREGAR ENTRADA)-->
+            <v-card-title>
+              <v-spacer></v-spacer>
+              <v-btn to="/Entry/new">
+                Agregar entrada
+              </v-btn>
+
+            </v-card-title>
+          </v-card>
+
+        </v-flex>
       </v-layout>
     </v-container>
 </template>
@@ -89,27 +93,21 @@ export default {
         tmp: '',
         search: '',
         pagination: {},
-        headers: [
-          {
-            text: 'Fecha',
-            align: 'left',
-            sortable: true,
-            value: 'date'
-          },
-          { 
-            text: 'Situación',
-            align: 'left', 
-            sortable: false,
-            value: 'situation' 
-          }
-        ],
-        
       }
     },
+    methods: {  
+      onLoadEntry(id){
+        this.$router.push('/Entry/' + id)
+      }
+    },
+    // Computed siempre nos da el state más reciente
     computed:{
-    entrys() {
-      return this.$store.getters.loadedEntrys
-    }
+      entrys() {
+        return this.$store.getters.loadedEntrys // Me devuelve las entrys actuales del store
+      },
+      entryPrueba() {
+        return this.$store.getters.loadedEntry('2')
+      }
   }
-  }
+}
 </script>
