@@ -47,5 +47,8 @@ new Vue({
       projectId: 'catarsis-cr',
       storageBucket: 'catarsis-cr.appspot.com'
     })  
+
+    // Se cargan las entrys del diario del usuario
+    this.$store.dispatch('loadEntrys')
   }
 })

@@ -20,8 +20,18 @@
 
             <!-- PENSAMIENTOS -->
 
+            <!-- Este loading se muestra solo mientras se cargan los entrys -->
+            <v-flex xs12 class="text-xs-center">
+              <v-progress-circular 
+                indeterminate 
+                class = "primary--text"
+                :width ="7"
+                :size="70"
+                v-if="loading"> </v-progress-circular>
+            </v-flex>
+
             <v-container fluid grid-list-md class="grey lighten-4">
-              <v-layout row wrap>
+              <v-layout row wrap v-if="!loading">
               <!-- Itera sobre la lista de pensamientos del usuario -->
 
               <!-- Bindear la variable al flex
@@ -105,8 +115,8 @@ export default {
       entrys() {
         return this.$store.getters.loadedEntrys // Me devuelve las entrys actuales del store
       },
-      entryPrueba() {
-        return this.$store.getters.loadedEntry('2')
+      loading () {
+        return this.$store.getters.loading
       }
   }
 }
