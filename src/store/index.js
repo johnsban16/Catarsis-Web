@@ -45,10 +45,12 @@ export const store = new Vuex.Store({
                 date: new Date()
             }
         ],
-        user: {
+        /*user: {
             id: 'kdlfjg345',
             diaryEntrys :['1, 2, 3, 4']
         }, // Default user
+        */
+        user: null,
         loading: false,
         error: null
     },
