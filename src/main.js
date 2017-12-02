@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 
 import Vuetify from 'vuetify'
@@ -16,9 +15,11 @@ import VueAplayer from 'vue-aplayer'
 
 //Importar Firebase
 import * as firebase from 'firebase'
+import VueChatScroll from 'vue-chat-scroll'
 
 Vue.use(Vuetify)
 Vue.use(VueAplayer)
+Vue.use(VueChatScroll)
 Vue.component('app-alert', AlertCmp)
 Vue.component('a-player', VueAplayer)
 

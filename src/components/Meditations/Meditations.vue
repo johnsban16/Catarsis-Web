@@ -31,6 +31,9 @@
                         </v-layout>
                     </v-container>
                 </v-card>
+                <ul class="messages" v-chat-scroll>
+  <li class="message" v-for="n in messages">{{ n }}</li>
+</ul>
             </v-flex>
         </v-layout>
     </v-container>
