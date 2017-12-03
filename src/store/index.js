@@ -23,6 +23,52 @@ export const store = new Vuex.Store({
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
         },
+        updateEntry (state, payload) { // El payload es el nuevo data del entry
+            const entry = state.loadedEntrys.find(entry => {
+                return entry.id === payload.id // Aquí devuelve el id de la entry que fue modificada
+            })
+
+            if (payload.title) {
+                entry.title = payload.title
+            }
+
+            entry.description = payload.description
+            entry.emotions = payload.emotions
+            entry.anguish = payload.anguish
+            entry.distortions = payload.distortions
+            entry.thought = payload.thought
+            entry.challenge = payload.challenge
+            entry.results = payload.results
+            entry.newAnguish = payload.newAnguish
+            
+            /*
+            if (payload.description) {
+                entry.description = payload.description
+            }
+            if (payload.emotions) {
+                entry.emotions = payload.emotions
+            }
+            if (payload.anguish) {
+                entry.anguish = payload.anguish
+            }
+            if (payload.distortions) {
+                entry.distortions = payload.distortions
+            }
+            if (payload.thought) {
+                entry.thought = payload.thought
+            }
+            if (payload.challenge) {
+                entry.challenge = payload.challenge
+            }
+            if (payload.results) {
+                entry.results = payload.results
+            }
+            if (payload.newAnguish) {
+                entry.newAnguish = payload.newAnguish
+            }
+            */
+
+        },
         setUser(state, payload){
             state.user = payload
         },
@@ -165,6 +211,62 @@ export const store = new Vuex.Store({
         },
         clearError({commit}){
             commit('clearError')
+        },
+        updateEntryData ({commit}, payload) {
+
+            commit('setLoading', true)
+            const updateObj = {}
+            if (payload.title) {
+                updateObj.title = payload.title
+            }
+
+            updateObj.description = payload.description
+            updateObj.emotions = payload.emotions
+            updateObj.anguish = payload.anguish
+            updateObj.distortions = payload.distortions
+            updateObj.thought = payload.thought
+            updateObj.challenge = payload.challenge
+            updateObj.results = payload.results
+            updateObj.newAnguish = payload.newAnguish
+
+            /*
+            if (payload.description) {
+                updateObj.description = payload.description
+            }
+            if (payload.emotions) {
+                updateObj.emotions = payload.emotions
+            }
+            if (payload.anguish) {
+                updateObj.anguish = payload.anguish
+            }
+            if (payload.distortions) {
+                updateObj.distortions = payload.distortions
+            }
+            if (payload.thought) {
+                updateObj.thought = payload.thought
+            }
+            if (payload.challenge) {
+                updateObj.challenge = payload.challenge
+            }
+            if (payload.results) {
+                updateObj.results = payload.results
+            }
+            if (payload.newAnguish) {
+                updateObj.newAnguish = payload.newAnguish
+            }
+            */
+
+
+            // Modificar en la base
+            firebase.database().ref('entrys').child(payload.id).update(updateObj) // Solo reemplaza los elementos del entry que estén en el updateObj
+                .then(() =>{
+                    commit('setLoading', false)
+                    commit('updateEntry', payload)
+                })
+                .catch(error => {
+                    console.log(error)
+                    commit('setLoading', false)
+                })
         }
 
     },
@@ -175,7 +277,7 @@ export const store = new Vuex.Store({
                 return entryA.date < entryB.date
             })
         },
-        loadedEntry (state) {
+        loadedEntry ({commit}, state) {
             return (entryID) => {
                 return state.loadedEntrys.find((entry) => {
                     return entry.id === entryID

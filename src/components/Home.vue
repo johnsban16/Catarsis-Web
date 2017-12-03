@@ -10,7 +10,7 @@
               class="white--text"
             >
               <img src="static/catarsis-logo-2.png" alt="Vuetify.js" >
-              <h1 class="white--text mb-2 display-1 text-xs-center">¡Bienvenido!</h1>
+              <h1 class="white--text mb-2 display-1 text-xs-center">¡Bienvenido(a)!</h1>
               <div class="subheading mb-3 text-xs-center">Elige una de las 3 funciones de la aplicación</div>
             </v-layout>
           </v-parallax>

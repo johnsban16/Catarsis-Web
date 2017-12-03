@@ -34,20 +34,12 @@
               <v-layout row wrap v-if="!loading">
               <!-- Itera sobre la lista de pensamientos del usuario -->
 
-              <!-- Bindear la variable al flex
-              <v-flex
-                v-bind="{ [`xs${card.flex}`]: true }"
-                v-for="card in cards"
-                :key="card.title"
-              >
-              -->
-
               <v-flex
                 v-for="entry in entrys"
                 :key="entry.title"
                 :id="entry.id"
-                xs12
-              >
+                xs12>
+
                 <v-card>
                   <!-- Título --> 
                   <v-card-title primary-title>
@@ -72,9 +64,7 @@
                     <!-- <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn> -->
                     <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
                     <!-- <v-btn flat color="primary">Editar</v-btn> -->
-                    <template v-if="true">
-                      <app-edit-entry-dialog></app-edit-entry-dialog>
-                    </template>
+                    
                     <v-btn flat color="primary">Borrar</v-btn>
                   </v-card-actions>
 
