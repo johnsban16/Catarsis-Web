@@ -23,6 +23,9 @@ export const store = new Vuex.Store({
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
         },
+        createUser(state, payload){
+
+        },
         deleteEntry(state, payload){ // Delete entry del array actual de entrys
             var index = state.loadedEntrys.indexOf(payload.id)
             console.log(index)
@@ -156,7 +159,7 @@ export const store = new Vuex.Store({
                 }) // En caso de fallo
             
         },
-        registrarUsuario({commit}, payload){
+        registrarUsuario({commit, getters}, payload){ // Cuando hace esto mete el usuario a la base también
             // Método de autenticación de Firebase
             // Mientras registramos un usuario estamos en estado de loading
             commit('setLoading', true)
@@ -171,6 +174,21 @@ export const store = new Vuex.Store({
                             Diary: [] // Se crea un diario vacío
                         }
                         commit('setUser', newUser)
+
+                        // --------------- ALMACENAR USUARIO EN FIREBASE ---------------
+                        // Se quiere almacenar y/o accesar a los entrys del diario en la base, se pushea el entry recién creado
+                        firebase.database().ref('users').push(newUser) 
+                        .then((data) => {
+                            //console.log(data);
+                            const key = data.key // Almacenamos la key del user
+                            commit('createUser',  {
+                                ...newUser, // con ... obtenemos el objeto de arriba de user
+                                id: key // estamos asignándole el key de firebase al objeto user
+                            })
+                        }) // En caso de success, muestra en consola y hace commit
+                        .catch((error) => {
+                            console.log(error)
+                        }) // En caso de fallo
                     }
                 )
                 .catch(
