@@ -7,6 +7,8 @@
 
             <v-toolbar flat color="blue lighten-1" dark >
             <v-toolbar-title>Diario de pensamiento</v-toolbar-title></v-toolbar>
+            
+            <!--
             <v-card-title>
               <v-spacer></v-spacer>
               <v-text-field
@@ -17,6 +19,7 @@
                 v-model="search"
               ></v-text-field>
             </v-card-title>
+            -->
 
             <!-- PENSAMIENTOS -->
 
@@ -65,7 +68,7 @@
                     <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
                     <!-- <v-btn flat color="primary">Editar</v-btn> -->
                     
-                    <v-btn flat color="primary">Borrar</v-btn>
+                    <v-btn flat color="primary" @click = "onDeleteEntry(entry.id)">Borrar</v-btn>
                   </v-card-actions>
 
                 </v-card>
@@ -101,6 +104,9 @@ export default {
     methods: {  
       onLoadEntry(id){
         this.$router.push('/Entry/' + id)
+      },
+      onDeleteEntry(id){
+        this.$store.dispatch('deleteEntry', {id})
       }
     },
     // Computed siempre nos da el state más reciente

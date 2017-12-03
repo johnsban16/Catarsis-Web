@@ -23,6 +23,11 @@ export const store = new Vuex.Store({
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
         },
+        deleteEntry(state, payload){ // Delete entry del array actual de entrys
+            var index = state.loadedEntrys.indexOf(payload.id)
+            console.log(index)
+            state.loadedEntrys.splice(index, 1)
+        },
         updateEntry (state, payload) { // El payload es el nuevo data del entry
             const entry = state.loadedEntrys.find(entry => {
                 return entry.id === payload.id // Aquí devuelve el id de la entry que fue modificada
@@ -211,6 +216,18 @@ export const store = new Vuex.Store({
         },
         clearError({commit}){
             commit('clearError')
+        },
+        deleteEntry ({commit}, payload) {
+            commit('setLoading', false)
+            firebase.database().ref('entrys').child(payload.id).remove() 
+            .then(() =>{
+                commit('setLoading', false)
+                commit('deleteEntry', payload)
+            })
+            .catch(error => {
+                console.log(error)
+                commit('setLoading', false)
+            })
         },
         updateEntryData ({commit}, payload) {
 
