@@ -23,9 +23,7 @@ export const store = new Vuex.Store({
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
         },
-        createUser(state, payload){
-
-        },
+        createUser(state, payload){},
         deleteEntry(state, payload){ // Delete entry del array actual de entrys
             var index = state.loadedEntrys.indexOf(payload.id)
             console.log(index)
@@ -180,11 +178,9 @@ export const store = new Vuex.Store({
                         firebase.database().ref('users').push(newUser) 
                         .then((data) => {
                             //console.log(data);
-                            const key = data.key // Almacenamos la key del user
-                            commit('createUser',  {
-                                ...newUser, // con ... obtenemos el objeto de arriba de user
-                                id: key // estamos asignándole el key de firebase al objeto user
-                            })
+                            //const key = data.key // Almacenamos la key del user
+                            
+                            commit('createUser',  {newUser})
                         }) // En caso de success, muestra en consola y hace commit
                         .catch((error) => {
                             console.log(error)
