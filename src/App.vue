@@ -23,6 +23,18 @@
           <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <!-- LOGOUT -->
+      <v-list-tile 
+      v-if="userIsAuthenticated"
+      @click="onLogout">
+        <v-list-tile-action>
+          <v-icon>exit_to_app</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Cerrar sesión</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
     </v-list>
   </v-navigation-drawer>
     <v-toolbar color="blue darken-1" dark >
@@ -43,6 +55,15 @@
             <v-icon left>{{ item.icon }}</v-icon>
             {{ item.title }}
           </v-btn>
+          <!-- Botón de logout (responsive menu)-->
+          <v-btn 
+            v-if="userIsAuthenticated"
+            flat
+            @click="onLogout">
+            <v-icon left>exit_to_app</v-icon>
+            Cerrar sesión
+          </v-btn>
+
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -73,13 +94,17 @@
             {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
             {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
-            {icon: 'lock', title: 'Cerrar sesión', link:'/Logout'} // Crear esto
           ]
         }
         return menuItems
       },
       userIsAuthenticated(){ // Función que devuelve si usuario está autenticado
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods: {
+      onLogout () {
+        this.$store.dispatch('logout') // Cuando se presiona el botón de logout se llama al método de store, logout
       }
     }
   }

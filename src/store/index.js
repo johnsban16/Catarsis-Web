@@ -85,7 +85,8 @@ export const store = new Vuex.Store({
                             thought: obj[key].thought,
                             challenge: obj[key].challenge,
                             results: obj[key].results,
-                            newAnguish: obj[key].newAnguish 
+                            newAnguish: obj[key].newAnguish,
+                            creatorId: obj[key].creatorId 
                         }) // Pusheamos en el array de arriba para irlo llenando de las cosas que fetcheamos de la base
                     }
                     commit('setLoadedEntrys', entrys) // Le pasamos a esta función el array que acabamos de llenar
@@ -99,7 +100,7 @@ export const store = new Vuex.Store({
                 )
         },
         // Crear entrada del diario
-        createEntry({commit}, payload){
+        createEntry({commit, getters}, payload){
             const entry = {
                 //id: payload.id, // Se remueve el id porque Firebase crea un ID único automáticamente
                 title: payload.title,
@@ -111,7 +112,8 @@ export const store = new Vuex.Store({
                 challenge: payload.challenge,
                 results: payload.results,
                 newAnguish: payload.newAnguish,
-                date: payload.date.toISOString() // Se pasa a string para poder almacenarla en firebase
+                date: payload.date.toISOString(), // Se pasa a string para poder almacenarla en firebase
+                creatorId: getters.user.id // Guarda cada entry con el id del usuario que creó la entrada de diario
             }
             // --------------- ALMACENAR EN FIREBASE --------------- 
             // Se quiere almacenar y/o accesar a los entrys del diario en la base, se pushea el entry recién creado
@@ -163,7 +165,7 @@ export const store = new Vuex.Store({
                         commit('setLoading', false)                                                
                         const newUser = {
                             id: user.uid,
-                            // Diary: [] // TODO: llenar el diario de pensamiento
+                            Diary: [] // TODO: llenar el diario de pensamiento
                         }
                         commit('setUser', newUser)
                     }
@@ -176,9 +178,18 @@ export const store = new Vuex.Store({
                     }
                 )
         },
+        autoSignIn ({commit}, payload){ // El payload es el user
+            commit('setUser', {id: payload.uid, Diary: []})
+
+        },
+        logout({commit}) {
+            firebase.auth().signOut() // Este método remueve el token del local storage
+            commit('setUser', null) // Pone el user en null para sign out
+        },
         clearError({commit}){
             commit('clearError')
         }
+
     },
     getters: {
         // Devolver todas las entrys del diario

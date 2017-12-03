@@ -270,7 +270,6 @@
             // esto se pasa al store
 
             const entryData = {
-                id: '23',
                 title: this.title,
                 description: this.description,
                 emotions: this.emotions,
