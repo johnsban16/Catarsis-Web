@@ -91,9 +91,10 @@
         ]
         if(this.userIsAuthenticated){ // Si el usuario está signeado, devolver todo menos registrarse y login más un logout
           menuItems = [
+            {icon: 'account_circle', title: 'Mi perfil', link:'/Profile'},
             {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
-            {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
+            {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'}
           ]
         }
         return menuItems
@@ -105,6 +106,7 @@
     methods: {
       onLogout () {
         this.$store.dispatch('logout') // Cuando se presiona el botón de logout se llama al método de store, logout
+        this.$router.push('/') // Cuando el usuario hace signout, regresa a la raíz
       }
     }
   }

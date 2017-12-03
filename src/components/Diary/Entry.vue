@@ -108,7 +108,17 @@ export default {
     computed: {
         entry () {
             return this.$store.getters.loadedEntry(this.id)
+        },
+        userIsAuthenticated () {
+            return this.$store.getters.user !== null && this.$store.getters.user !== undefined // Hay un usuario loggeado
+        },
+        userIsCreator () { // Devuelve si el usuario actual es el que creó la entry
+            if(!this.userIsAuthenticated){ // Primero checkea si el usuario está signeado
+                return false // Si no hay usuario no mostrar
+            }
+            return this.$store.getters.user.id == this.entry.creatorId
         }
+        // Para solo mostrar la entrada al usuario dueño de esa entry de diario
     }
 
 }

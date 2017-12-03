@@ -71,7 +71,10 @@
                     <v-spacer></v-spacer>
                     <!-- <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn> -->
                     <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
-                    <v-btn flat color="primary">Editar</v-btn>
+                    <!-- <v-btn flat color="primary">Editar</v-btn> -->
+                    <template v-if="true">
+                      <app-edit-entry-dialog></app-edit-entry-dialog>
+                    </template>
                     <v-btn flat color="primary">Borrar</v-btn>
                   </v-card-actions>
 
@@ -117,7 +120,17 @@ export default {
       },
       loading () {
         return this.$store.getters.loading
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined // Hay un usuario loggeado
+      },
+      userIsCreator () { // Devuelve si el usuario actual es el que creó la entry
+        if(!this.userIsAuthenticated){ // Primero checkea si el usuario está signeado
+          return false // Si no hay usuario no mostrar
+        }
+        return this.$store.getters.user.id == this.entry.creatorId
       }
+        // Para solo mostrar la entrada al usuario dueño de esa entry de diario
   }
 }
 </script>
