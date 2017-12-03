@@ -47,6 +47,15 @@ new Vue({
       databaseURL: 'https://catarsis-cr.firebaseio.com',
       projectId: 'catarsis-cr',
       storageBucket: 'catarsis-cr.appspot.com'
-    })  
+    })
+    // Para que le haga lock al usuario que está signed in
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){ // Si hay un usuario válido
+        this.$store.dispatch('autoSignIn', user) // Autosignea un usuario que ya tiene los tokens válidos en local storage
+      }
+    }) // Esto se dispara cada vez que el estado de autenticación cambia
+
+    // Se cargan las entrys del diario del usuario
+    this.$store.dispatch('loadEntrys')
   }
 })

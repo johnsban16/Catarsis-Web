@@ -9,6 +9,7 @@ import DiaryEntry from '@/components/Diary/Entry'
 import AddEntry from '@/components/Diary/AddEntry'
 import Login from '@/components/User/Login'
 import Signup from '@/components/User/Signup'
+import AuthGuard from './auth-guard'
 Vue.use(Router)
 
 export default new Router({
@@ -36,18 +37,21 @@ export default new Router({
     {
       path: '/Diary',
       name: 'Diary',
-      component: Diary
+      component: Diary,
+      beforeEnter: AuthGuard
     },
     {
       path: '/Entry/New',
       name: 'AddEntry',
-      component: AddEntry
+      component: AddEntry,
+      beforeEnter: AuthGuard // Para que solo se pueda visitar esta vista si se está autenticado
     },
     {
       path: '/Entry/:id',
       name: 'DiaryEntry',
       props: true,
-      component: DiaryEntry
+      component: DiaryEntry,
+      beforeEnter: AuthGuard
     },
     {
       path: '/Login',
