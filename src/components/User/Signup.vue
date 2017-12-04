@@ -114,7 +114,7 @@
             onRegistrarse (){
                 // Muestra en consola lo que metió el usuario
                 console.log({email: this.correo, password: this.password})
-                this.$store.dispatch('registrarUsuario', {correo: this.correo, password: this.password})
+                this.$store.dispatch('registrarUsuario', {correo: this.correo, password: this.password, nombre: this.nombre})
             },
             onDismissed(){
                 console.log('Dismissed Alert')

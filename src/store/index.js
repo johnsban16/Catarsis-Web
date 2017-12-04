@@ -180,6 +180,8 @@ export const store = new Vuex.Store({
                         commit('setLoading', false)                        
                         const newUser = {
                             id: user.uid,
+                            nombre: payload.nombre,
+                            tipo: 'standard',
                             Diary: [] // Se crea un diario vacío
                         }
                         commit('setUser', newUser)
