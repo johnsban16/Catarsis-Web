@@ -62,10 +62,14 @@ new Vue({
       if (user){ // Si hay un usuario válido
         this.$store.dispatch('autoSignIn', user) // Autosignea un usuario que ya tiene los tokens válidos en local storage
         this.$store.dispatch('loadEntrys') // Carga sus entrys de diario
+        this.$store.dispatch('loadMeditationsRelax')
       }
     }) // Esto se dispara cada vez que el estado de autenticación cambia
 
     // Se cargan las entrys del diario del usuario
     this.$store.dispatch('loadEntrys')
+    // Se cargan las meditations relax
+    this.$store.dispatch('loadMeditationsRelax')
+
   }
 })

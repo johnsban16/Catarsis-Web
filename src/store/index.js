@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
         }, // Default user
         */
         user: null,
+        loadedMeditationsRelax: [],
         loading: false,
         error: null,
         chats: [],
@@ -21,6 +22,9 @@ export const store = new Vuex.Store({
     mutations:{
         setLoadedEntrys (state, payload) {
             state.loadedEntrys = payload 
+        },
+        setLoadedMeditationsRelax (state, payload) {
+            state.loadedMeditationsRelax = payload
         },
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
@@ -123,10 +127,40 @@ export const store = new Vuex.Store({
                                 newAnguish: obj[key].newAnguish,
                                 creatorId: obj[key].creatorId 
                             }) // Pusheamos en el array de arriba para irlo llenando de las cosas que fetcheamos de la base
-                            //console.log(creatorId)
+                            console.log(obj[key].date)
                         }   
                     }
                     commit('setLoadedEntrys', entrys) // Le pasamos a esta función el array que acabamos de llenar
+                    commit('setLoading', false) // Aquí termina de cargar
+                })
+                .catch(
+                    (error) => {
+                        console.log(error)
+                        commit('setLoading', false)
+                    }
+                )
+        },
+        loadMeditationsRelax ({commit, getters}) { // Esto es para loadear todas las entrys, esto lo llamamos en main.js, porque ahí se carga la app
+            commit('setLoading', true)
+            firebase.database().ref('meditations/relax').once('value') // fetch values, value es un event que nos da Firebase cada vez que los datos de la base cambian, en este caso solo usamos el once, porque no se necesita un live update
+                .then((data) => {
+                    const meditationsRelax = [] // En este array almacenamos todos los entrys que fetcheamos
+                    const obj = data.val() // Objeto con pares de tipo property, value
+                    for (let key in obj){ // Aquí iteramos por todas las llaves en el obj
+                        // Llena el array de meditaciones
+                        console.log(obj[key].title)
+                        console.log(obj[key].author)
+                        console.log(obj[key].url)
+                        console.log(obj[key].pic)
+                        meditationsRelax.push({
+                            title: obj[key].title,
+                            author: obj[key].author,
+                            url: obj[key].url,
+                            pic: obj[key].pic
+                        }) // Pusheamos en el array de arriba para irlo llenando de las cosas que fetcheamos de la base
+                        console.log(obj[key].title)
+                    }
+                    commit('setLoadedMeditationsRelax', meditationsRelax) // Le pasamos a esta función el array que acabamos de llenar
                     commit('setLoading', false) // Aquí termina de cargar
                 })
                 .catch(
@@ -367,6 +401,9 @@ export const store = new Vuex.Store({
         },
         user(state){
             return state.user
+        },
+        loadedMeditationsRelax(state){
+            return state.loadedMeditationsRelax
         },
         loading(state){
             return state.loading
