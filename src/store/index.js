@@ -6,37 +6,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state:{
-        loadedEntrys: [ // Entradas de Diario que se cargan de firebase
-            /*{ 
-                id: 'sdf5sdf', 
-                title: 'El otro día vi a una persona que hace rato no me topaba', 
-                date: '13/06/2017', 
-                description: 'Iba caminando por la calle y me topé a esta persona, no quería verla. Igual ahí estaba, yo no podía hacer nada al respecto. Nunca he podido. Nunca podré. La verdad es que no puedo controlar muchas cosas que me suceden, y eso no está tan mal.',
-                emotions: ['Ansiedad', 'Tristeza'],
-                anguish: '2 - Angustia moderada',
-                distortions: ['Magnificación de lo negativo', 'Filtrando lo positivo'],
-                thought: 'Siento que odio no poder controlar todo a mi alrededor.',
-                challenge: 'Voy a dejar de sentirme triste.',
-                results: 'Me siento menos triste.',
-                newAnguish: '1 - Angustia leve',
-                date: new Date()
-            },
-            { 
-                id: 'skdjf435', 
-                title: 'Me siento triste', 
-                date: '12/03/2017', 
-                description: 'Me sentí triste',
-                emotions: ['Angustia', 'Enojo'],
-                anguish: '2 - Angustia moderada',
-                distortions: ['Etiquetado', 'Filtrando lo positivo'],
-                thought: 'Siento que odio no poder controlar todo a mi alrededor.',
-                challenge: 'Voy a dejar de querer controlarlo todo siempre.',
-                results: 'Me siento mejor y más liberado.',
-                newAnguish: '0 - Sin angustia',
-                date: new Date()
-            }
-            */
-        ],
+        loadedEntrys: [],
         /*user: {
             id: 'kdlfjg345',
             diaryEntrys :['1, 2, 3, 4']
@@ -54,6 +24,58 @@ export const store = new Vuex.Store({
         },
         createEntry(state, payload){
             state.loadedEntrys.push(payload)
+        },
+        createUser(state, payload){},
+        deleteEntry(state, payload){ // Delete entry del array actual de entrys
+            var index = state.loadedEntrys.indexOf(payload.id)
+            console.log(index)
+            state.loadedEntrys.splice(index, 1)
+        },
+        updateEntry (state, payload) { // El payload es el nuevo data del entry
+            const entry = state.loadedEntrys.find(entry => {
+                return entry.id === payload.id // Aquí devuelve el id de la entry que fue modificada
+            })
+
+            if (payload.title) {
+                entry.title = payload.title
+            }
+
+            entry.description = payload.description
+            entry.emotions = payload.emotions
+            entry.anguish = payload.anguish
+            entry.distortions = payload.distortions
+            entry.thought = payload.thought
+            entry.challenge = payload.challenge
+            entry.results = payload.results
+            entry.newAnguish = payload.newAnguish
+            
+            /*
+            if (payload.description) {
+                entry.description = payload.description
+            }
+            if (payload.emotions) {
+                entry.emotions = payload.emotions
+            }
+            if (payload.anguish) {
+                entry.anguish = payload.anguish
+            }
+            if (payload.distortions) {
+                entry.distortions = payload.distortions
+            }
+            if (payload.thought) {
+                entry.thought = payload.thought
+            }
+            if (payload.challenge) {
+                entry.challenge = payload.challenge
+            }
+            if (payload.results) {
+                entry.results = payload.results
+            }
+            if (payload.newAnguish) {
+                entry.newAnguish = payload.newAnguish
+            }
+            */
+
         },
         setUser(state, payload){
             state.user = payload
@@ -78,27 +100,31 @@ export const store = new Vuex.Store({
         }
     },
     actions:{
-        loadEntrys ({commit}) { // Esto es para loadear todas las entrys, esto lo llamamos en main.js, porque ahí se carga la app
+        loadEntrys ({commit, getters}) { // Esto es para loadear todas las entrys, esto lo llamamos en main.js, porque ahí se carga la app
             commit('setLoading', true)
             firebase.database().ref('entrys').once('value') // fetch values, value es un event que nos da Firebase cada vez que los datos de la base cambian, en este caso solo usamos el once, porque no se necesita un live update
                 .then((data) => {
                     const entrys = [] // En este array almacenamos todos los entrys que fetcheamos
                     const obj = data.val() // Objeto con pares de tipo property, value
                     for (let key in obj){ // Aquí iteramos por todas las llaves en el obj
-                        entrys.push({
-                            id: key,
-                            title: obj[key].title,
-                            date: obj[key].date, 
-                            description: obj[key].description,
-                            emotions: obj[key].emotions,
-                            anguish: obj[key].anguish,
-                            distortions: obj[key].distortions,
-                            thought: obj[key].thought,
-                            challenge: obj[key].challenge,
-                            results: obj[key].results,
-                            newAnguish: obj[key].newAnguish,
-                            creatorId: obj[key].creatorId 
-                        }) // Pusheamos en el array de arriba para irlo llenando de las cosas que fetcheamos de la base
+                        // Llena el array con las entradas específicas del usuario
+                        if(obj[key].creatorId == getters.user.id){
+                            entrys.push({
+                                id: key,
+                                title: obj[key].title,
+                                date: obj[key].date, 
+                                description: obj[key].description,
+                                emotions: obj[key].emotions,
+                                anguish: obj[key].anguish,
+                                distortions: obj[key].distortions,
+                                thought: obj[key].thought,
+                                challenge: obj[key].challenge,
+                                results: obj[key].results,
+                                newAnguish: obj[key].newAnguish,
+                                creatorId: obj[key].creatorId 
+                            }) // Pusheamos en el array de arriba para irlo llenando de las cosas que fetcheamos de la base
+                            //console.log(creatorId)
+                        }   
                     }
                     commit('setLoadedEntrys', entrys) // Le pasamos a esta función el array que acabamos de llenar
                     commit('setLoading', false) // Aquí termina de cargar
@@ -142,7 +168,7 @@ export const store = new Vuex.Store({
                 }) // En caso de fallo
             
         },
-        registrarUsuario({commit}, payload){
+        registrarUsuario({commit, getters}, payload){ // Cuando hace esto mete el usuario a la base también
             // Método de autenticación de Firebase
             // Mientras registramos un usuario estamos en estado de loading
             commit('setLoading', true)
@@ -157,6 +183,19 @@ export const store = new Vuex.Store({
                             Diary: [] // Se crea un diario vacío
                         }
                         commit('setUser', newUser)
+
+                        // --------------- ALMACENAR USUARIO EN FIREBASE ---------------
+                        // Se quiere almacenar y/o accesar a los entrys del diario en la base, se pushea el entry recién creado
+                        firebase.database().ref('users').push(newUser) 
+                        .then((data) => {
+                            //console.log(data);
+                            //const key = data.key // Almacenamos la key del user
+                            
+                            commit('createUser',  {newUser})
+                        }) // En caso de success, muestra en consola y hace commit
+                        .catch((error) => {
+                            console.log(error)
+                        }) // En caso de fallo
                     }
                 )
                 .catch(
@@ -176,9 +215,11 @@ export const store = new Vuex.Store({
                         commit('setLoading', false)                                                
                         const newUser = {
                             id: user.uid,
-                            Diary: [] // TODO: llenar el diario de pensamiento
+                            Diary: []
                         }
                         commit('setUser', newUser)
+                        // (?)
+                        
                     }
                 )
                 .catch( // Handle errors
@@ -188,6 +229,7 @@ export const store = new Vuex.Store({
                         console.log(error)
                     }
                 )
+
         },
         sendMessage ({commit}, payload) {
             let chatID = payload.chatID
@@ -232,20 +274,89 @@ export const store = new Vuex.Store({
         logout({commit}) {
             firebase.auth().signOut() // Este método remueve el token del local storage
             commit('setUser', null) // Pone el user en null para sign out
+            commit('setLoadedEntrys', []) // Para que cuando salga, deje las loaded entrys vacías
         },
         clearError({commit}){
             commit('clearError')
+        },
+        deleteEntry ({commit}, payload) {
+            commit('setLoading', false)
+            firebase.database().ref('entrys').child(payload.id).remove() 
+            .then(() =>{
+                commit('setLoading', false)
+                commit('deleteEntry', payload)
+            })
+            .catch(error => {
+                console.log(error)
+                commit('setLoading', false)
+            })
+        },
+        updateEntryData ({commit}, payload) {
+
+            commit('setLoading', true)
+            const updateObj = {}
+            if (payload.title) {
+                updateObj.title = payload.title
+            }
+
+            updateObj.description = payload.description
+            updateObj.emotions = payload.emotions
+            updateObj.anguish = payload.anguish
+            updateObj.distortions = payload.distortions
+            updateObj.thought = payload.thought
+            updateObj.challenge = payload.challenge
+            updateObj.results = payload.results
+            updateObj.newAnguish = payload.newAnguish
+
+            /*
+            if (payload.description) {
+                updateObj.description = payload.description
+            }
+            if (payload.emotions) {
+                updateObj.emotions = payload.emotions
+            }
+            if (payload.anguish) {
+                updateObj.anguish = payload.anguish
+            }
+            if (payload.distortions) {
+                updateObj.distortions = payload.distortions
+            }
+            if (payload.thought) {
+                updateObj.thought = payload.thought
+            }
+            if (payload.challenge) {
+                updateObj.challenge = payload.challenge
+            }
+            if (payload.results) {
+                updateObj.results = payload.results
+            }
+            if (payload.newAnguish) {
+                updateObj.newAnguish = payload.newAnguish
+            }
+            */
+
+
+            // Modificar en la base
+            firebase.database().ref('entrys').child(payload.id).update(updateObj) // Solo reemplaza los elementos del entry que estén en el updateObj
+                .then(() =>{
+                    commit('setLoading', false)
+                    commit('updateEntry', payload)
+                })
+                .catch(error => {
+                    console.log(error)
+                    commit('setLoading', false)
+                })
         }
 
     },
     getters: {
         // Devolver todas las entrys del diario
-        loadedEntrys(state){
+        loadedEntrys (state){
             return state.loadedEntrys.sort((entryA, entryB) => {
                 return entryA.date < entryB.date
             })
         },
-        loadedEntry(state) {
+        loadedEntry ({commit}, state) {
             return (entryID) => {
                 return state.loadedEntrys.find((entry) => {
                     return entry.id === entryID

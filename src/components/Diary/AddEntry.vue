@@ -38,7 +38,7 @@
                                     <v-dialog v-model="dialogEmotions" scrollable>
                                         <v-btn color="primary" dark slot="activator">Emociones</v-btn>
                                         <v-card>
-                                            <v-card-title>Qué emociones sintió</v-card-title>
+                                            <v-card-title>Emociones percibidas</v-card-title>
                                             <v-divider></v-divider>
                                             <v-card-text style="height: 300px;">
                                                 <v-flex xs12 sm12 md10>
@@ -55,11 +55,11 @@
                                             </v-card-text>
                                             <v-divider></v-divider>
                                             <v-card-actions>
-                                            <v-btn color="blue darken-1" flat @click.native="dialogEmotions = false">Cerrar</v-btn>
-                                            <v-btn color="blue darken-1" flat @click.native="dialogEmotions = false">Guardar</v-btn>
+                                                <v-btn color="blue darken-1" flat @click.native="dialogEmotions = false">Cerrar</v-btn>
+                                                <v-btn color="blue darken-1" flat @click.native="dialogEmotions = false">Guardar</v-btn>
                                             </v-card-actions>
                                         </v-card>
-                                        </v-dialog>
+                                    </v-dialog>
                                     <v-card-text>{{emotions.join(", ")}}</v-card-text>
                                 </v-layout>
                                 <v-layout row >
@@ -152,34 +152,34 @@
                             <v-card-text>Indique su nuevo nivel de angustia</v-card-text>
                         </v-layout>
                         <v-layout row >
-                                    <v-dialog v-model="dialogAnguish" scrollable>
-                                        <v-btn color="primary" dark slot="activator">Angustia</v-btn>
-                                        <v-card>
-                                            <v-card-title>Especifique su nivel de angustia</v-card-title>
-                                            <v-divider></v-divider>
-                                            <v-card-text style="height: 300px;">
-                                                <v-flex xs12 sm12 md10>
-                                                <v-radio-group v-model="newAnguish" :mandatory="false">
-                                                <v-radio 
-                                                    v-for="item in anguishList"
-                                                    :key="item.level"
-                                                    :label="item.description"
-                                                    color="primary"
-                                                    :value="item.description"
-                                                    >
-                                                </v-radio>
-                                                </v-radio-group>
-                                            </v-flex>
-                                            </v-card-text>
-                                            <v-divider></v-divider>
-                                            <v-card-actions>
-                                            <v-btn color="blue darken-1" flat @click.native="dialogAnguish = false">Cerrar</v-btn>
-                                            <v-btn color="blue darken-1" flat @click.native="dialogAnguish = false">Guardar</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                        </v-dialog>
-                                    <v-card-text>{{newAnguish}}</v-card-text>
-                                </v-layout>
+                                <v-dialog v-model="dialogAnguish" scrollable>
+                                    <v-btn color="primary" dark slot="activator">Angustia</v-btn>
+                                    <v-card>
+                                        <v-card-title>Especifique su nivel de angustia</v-card-title>
+                                        <v-divider></v-divider>
+                                        <v-card-text style="height: 300px;">
+                                            <v-flex xs12 sm12 md10>
+                                            <v-radio-group v-model="newAnguish" :mandatory="false">
+                                            <v-radio 
+                                                v-for="item in anguishList"
+                                                :key="item.level"
+                                                :label="item.description"
+                                                color="primary"
+                                                :value="item.description"
+                                                >
+                                            </v-radio>
+                                            </v-radio-group>
+                                        </v-flex>
+                                        </v-card-text>
+                                        <v-divider></v-divider>
+                                        <v-card-actions>
+                                        <v-btn color="blue darken-1" flat @click.native="dialogAnguish = false">Cerrar</v-btn>
+                                        <v-btn color="blue darken-1" flat @click.native="dialogAnguish = false">Guardar</v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                                <v-card-text>{{newAnguish}}</v-card-text>
+                            </v-layout>
                         <v-btn @click.native="e1 = 2">Atrás</v-btn>
                         <v-btn type="submit" :disabled="loading" :loading="loading" color="primary">Guardar</v-btn>
                     </v-stepper-content>
@@ -210,17 +210,22 @@
             distortions: [],
             newAnguish: '',
             emotionsList: [
-            {name: 'Agobio'},
-            {name: 'Ansiedad'},
-            {name: 'Culpabilidad'},
-            {name: 'Disgusto'},
-            {name: 'Enfado'},
-            {name: 'Inútil'},
-            {name: 'Miedo'},
-            {name: 'Sin esperanza'},
-            {name: 'Tristeza'},
-            {name: 'Vacio'},
-            {name: 'Vergüenza'}
+                {name: 'Agobio'},
+                {name: 'Ansiedad'},
+                {name: 'Culpabilidad'},
+                {name: 'Disgusto'},
+                {name: 'Enojo'},
+                {name: 'Sentimiento de inutilidad'},
+                {name: 'Miedo'},
+                {name: 'Desesperanza'},
+                {name: 'Tristeza'},
+                {name: 'Vacío'},
+                {name: 'Vergüenza'},
+                {name: 'Tranquilidad'},
+                {name: 'Felicidad'},
+                {name: 'Agradecidecimiento'},
+                {name: 'Valentía'},
+                {name: 'Optimismo'}
             ],
             anguishList: [
                 {level: '0', description: "0 - Sin angustia"},

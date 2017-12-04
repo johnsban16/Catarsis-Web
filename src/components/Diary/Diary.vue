@@ -7,6 +7,8 @@
 
             <v-toolbar flat color="blue lighten-1" dark >
             <v-toolbar-title>Diario de pensamiento</v-toolbar-title></v-toolbar>
+            
+            <!--
             <v-card-title>
               <v-spacer></v-spacer>
               <v-text-field
@@ -17,6 +19,7 @@
                 v-model="search"
               ></v-text-field>
             </v-card-title>
+            -->
 
             <!-- PENSAMIENTOS -->
 
@@ -34,20 +37,12 @@
               <v-layout row wrap v-if="!loading">
               <!-- Itera sobre la lista de pensamientos del usuario -->
 
-              <!-- Bindear la variable al flex
-              <v-flex
-                v-bind="{ [`xs${card.flex}`]: true }"
-                v-for="card in cards"
-                :key="card.title"
-              >
-              -->
-
               <v-flex
                 v-for="entry in entrys"
                 :key="entry.title"
                 :id="entry.id"
-                xs12
-              >
+                xs12>
+
                 <v-card>
                   <!-- Título --> 
                   <v-card-title primary-title>
@@ -71,8 +66,9 @@
                     <v-spacer></v-spacer>
                     <!-- <v-btn flat color="primary" :to="'/Entry/' + entry.id">Ver</v-btn> -->
                     <v-btn flat color="primary" @click = "onLoadEntry(entry.id)">Ver</v-btn>
-                    <v-btn flat color="primary">Editar</v-btn>
-                    <v-btn flat color="primary">Borrar</v-btn>
+                    <!-- <v-btn flat color="primary">Editar</v-btn> -->
+                    
+                    <v-btn flat color="primary" @click = "onDeleteEntry(entry.id)">Borrar</v-btn>
                   </v-card-actions>
 
                 </v-card>
@@ -108,6 +104,9 @@ export default {
     methods: {  
       onLoadEntry(id){
         this.$router.push('/Entry/' + id)
+      },
+      onDeleteEntry(id){
+        this.$store.dispatch('deleteEntry', {id})
       }
     },
     // Computed siempre nos da el state más reciente
@@ -117,7 +116,17 @@ export default {
       },
       loading () {
         return this.$store.getters.loading
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined // Hay un usuario loggeado
+      },
+      userIsCreator () { // Devuelve si el usuario actual es el que creó la entry
+        if(!this.userIsAuthenticated){ // Primero checkea si el usuario está signeado
+          return false // Si no hay usuario no mostrar
+        }
+        return this.$store.getters.user.id == this.entry.creatorId
       }
+        // Para solo mostrar la entrada al usuario dueño de esa entry de diario
   }
 }
 </script>

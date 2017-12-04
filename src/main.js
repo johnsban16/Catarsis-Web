@@ -17,6 +17,10 @@ import VueAplayer from 'vue-aplayer'
 import DateFilter from './filters/date'
 import arrayToString from './filters/arrayToString'
 
+// Importar dialog de edit
+import EditEntryDialog from './components/Diary/Edit/EditEntryDialog.vue'
+
+
 //Importar Firebase
 import * as firebase from 'firebase'
 import VueChatScroll from 'vue-chat-scroll'
@@ -31,6 +35,9 @@ Vue.filter('arrayToString', arrayToString)
 
 Vue.component('app-alert', AlertCmp)
 Vue.component('a-player', VueAplayer)
+
+// Dialog de edit
+Vue.component('app-edit-entry-dialog', EditEntryDialog)
 
 Vue.config.productionTip = false
 
@@ -52,6 +59,7 @@ new Vue({
     firebase.auth().onAuthStateChanged((user) => {
       if (user){ // Si hay un usuario válido
         this.$store.dispatch('autoSignIn', user) // Autosignea un usuario que ya tiene los tokens válidos en local storage
+        this.$store.dispatch('loadEntrys') // Carga sus entrys de diario
       }
     }) // Esto se dispara cada vez que el estado de autenticación cambia
 

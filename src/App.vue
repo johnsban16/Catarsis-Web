@@ -94,6 +94,7 @@
             {icon: 'question_answer', title: 'Iniciar conversación', link:'/CreateChat'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
             {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
+            {icon: 'account_circle', title: 'Mi perfil', link:'/Profile'}
           ]
         }
         return menuItems
@@ -105,6 +106,7 @@
     methods: {
       onLogout () {
         this.$store.dispatch('logout') // Cuando se presiona el botón de logout se llama al método de store, logout
+        this.$router.push('/') // Cuando el usuario hace signout, regresa a la raíz
       }
     }
   }
