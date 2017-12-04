@@ -44,7 +44,9 @@ export const store = new Vuex.Store({
         */
         user: null,
         loading: false,
-        error: null
+        error: null,
+        chats: [],
+        onlineUsers: []
     },
     mutations:{
         setLoadedEntrys (state, payload) {
@@ -64,6 +66,15 @@ export const store = new Vuex.Store({
         },
         clearError(state){
             state.error = null
+        },
+        setMessagesEmpty (state) {
+            state.messages = []
+          },
+        setOnlineUsers (state, payload) {
+            state.onlineUsers = payload
+        },
+        setChats (state, payload) {
+            state.chats = payload
         }
     },
     actions:{
@@ -196,9 +207,27 @@ export const store = new Vuex.Store({
                 }
               )
           },
+        createChat ({commit}, payload) {
+            var newPostKey = firebase.database().ref().child('chats').push().key
+            var updates = {}
+            updates['/chats/' + newPostKey] = {name: payload.chatName}
+            firebase.database().ref().update(updates)
+        },
+        loadChats ({commit}) {
+            firebase.database().ref('chats').on('value', function (snapshot) {
+              commit('setChats', snapshot.val())
+            })
+        },
+        loadOnlineUsers ({commit}) {
+            firebase.database().ref('users').on('value', function (snapshot) {
+              let result = []
+              result[0] = snapshot.numChildren()
+              result[1] = snapshot.val()
+              commit('setOnlineUsers', result)
+            })
+        },
         autoSignIn ({commit}, payload){ // El payload es el user
             commit('setUser', {id: payload.uid, Diary: []})
-
         },
         logout({commit}) {
             firebase.auth().signOut() // Este método remueve el token del local storage
@@ -231,6 +260,12 @@ export const store = new Vuex.Store({
         },
         error(state){
             return state.error
+        },
+        messages (state) {
+            return state.messages
+        },
+        chats (state) {
+            return state.chats
         }
     }
 })

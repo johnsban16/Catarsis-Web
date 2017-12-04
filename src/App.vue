@@ -91,7 +91,7 @@
         ]
         if(this.userIsAuthenticated){ // Si el usuario está signeado, devolver todo menos registrarse y login más un logout
           menuItems = [
-            {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat'},
+            {icon: 'question_answer', title: 'Iniciar conversación', link:'/CreateChat'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
             {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
           ]

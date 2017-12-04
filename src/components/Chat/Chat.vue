@@ -1,16 +1,19 @@
 <template>
   <v-layout row>
-    <v-flex xs12 sm10 md12 lg12>
+    <v-flex xs12 sm10 order-xs2 style="position: relative;">
       <div class="chat-container">
         <message :messages="messages" @imageLoad="scrollToEnd"></message>
       </div>
       <emoji-picker :show="emojiPanel" @close="toggleEmojiPanel" @click="addMessage"></emoji-picker>
       <div class="typer">
-        <input  type="text" placeholder="Escribe un mensaje" v-on:keyup.enter="sendMessage" v-model="content">
+        <input type="text" placeholder="Escribe un mensaje" v-on:keyup.enter="sendMessage" v-model="content">
         <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
           <v-icon>mood</v-icon>
         </v-btn>
       </div>
+    </v-flex>
+    <v-flex sm2 order-xs1>
+      <chats></chats>
     </v-flex>
   </v-layout>
 </template>
@@ -47,7 +50,7 @@
         return this.chatMessages
       },
       username () {
-        return this.$store.getters.user.username
+        return this.$store.getters.user.id
       },
       onChildAdded () {
         var that = this

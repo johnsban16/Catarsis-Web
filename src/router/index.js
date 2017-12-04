@@ -10,6 +10,7 @@ import AddEntry from '@/components/Diary/AddEntry'
 import Login from '@/components/User/Login'
 import Signup from '@/components/User/Signup'
 import AuthGuard from './auth-guard'
+import CreateChat from '@/components/Chat/Create.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -20,9 +21,15 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Chat',
+      path: '/Chat/:id',
       name: 'Chat',
+      props: true,
       component: Chat
+    },
+    {
+      path: '/CreateChat',
+      name: 'CreateChat',
+      component: CreateChat
     },
     {
       path: '/Meditations',
