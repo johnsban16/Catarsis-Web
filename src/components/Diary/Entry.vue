@@ -10,8 +10,8 @@
             </v-progress-circular>
         </v-flex>
         
-        <v-layout column v-if="!loading">
-            <v-flex xs12>
+        <v-layout row wrap v-if="!loading">
+            <v-flex xs12 md8 offset-md2 lg10 offset-lg1>
             <!-- HEADER -->
             <v-card>
                 <v-toolbar flat color="blue lighten-1" dark >
