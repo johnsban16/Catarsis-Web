@@ -46,7 +46,7 @@
                     <v-expansion-panel-content>
                         <div slot="header">Emociones</div>
                         <v-card>
-                            <v-card-text class="grey lighten-3">{{entry.emotions}}</v-card-text> <!-- Falta meter el filtro de array acá -->
+                            <v-card-text class="grey lighten-3">{{entry.emotions.join(", ")}}</v-card-text> <!-- Falta meter el filtro de array acá -->
                         </v-card>
                     </v-expansion-panel-content>
 
@@ -60,7 +60,7 @@
                     <v-expansion-panel-content>
                         <div slot="header">Distorsiones cognitivas</div>
                         <v-card>
-                            <v-card-text class="grey lighten-3">{{entry.distortions}}</v-card-text> <!-- Falta meter el filtro de array acá -->
+                            <v-card-text class="grey lighten-3">{{entry.distortions.join(", ")}}</v-card-text> <!-- Falta meter el filtro de array acá -->
                         </v-card>
                     </v-expansion-panel-content>
 

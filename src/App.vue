@@ -94,7 +94,6 @@
             {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat/0'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
             {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
-            {icon: 'account_circle', title: 'Mi perfil', link:'/Profile'}
           ]
         }
         return menuItems

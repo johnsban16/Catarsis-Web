@@ -11,7 +11,6 @@ import Login from '@/components/User/Login'
 import Signup from '@/components/User/Signup'
 import AuthGuard from './auth-guard'
 import CreateChat from '@/components/Chat/Create.vue'
-import Profile from '@/components/User/Profile'
 
 Vue.use(Router)
 
@@ -71,11 +70,6 @@ export default new Router({
       path: '/Signup',
       name: 'Signup',
       component: Signup
-    },
-    {
-      path: '/Profile',
-      name: 'Profile',
-      component: Profile
     }
   ],
   mode:'history'
