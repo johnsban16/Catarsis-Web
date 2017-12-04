@@ -166,7 +166,6 @@
   }
   .chat-container .username{
     font-size: 18px;
-    font-weight: bold;
   }
   .chat-container .content{
     padding: 8px;
@@ -182,5 +181,4 @@
       max-width: 60%;
     }
   }
-
 </style>

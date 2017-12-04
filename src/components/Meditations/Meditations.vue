@@ -3,6 +3,8 @@
         <v-layout row wrap>
             <v-flex xs12 md6 lg10 offset-sm1>
                 <v-card>
+                <v-toolbar flat color="blue lighten-1" dark >
+            <v-toolbar-title>Meditaciones simples</v-toolbar-title></v-toolbar>
                     <v-container fluid >
                         <v-layout row wrap>
                             <v-flex

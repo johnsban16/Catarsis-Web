@@ -44,7 +44,6 @@ var date = "Chat " + year + "-" + month + "-" + day;
     },
     methods: {
       createChat () {
-          console.log({chatName: this.chatName})
           this.$store.dispatch('createChat', { chatName: this.chatName })
           this.$router.push('/Chat/0')        
       }

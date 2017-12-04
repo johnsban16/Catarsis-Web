@@ -39,7 +39,7 @@
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline text-xs-center">Justificación del proyecto</div>
                       </v-card-title>
-                      <v-card-text>
+                      <v-card-text class="text-xs-center">
                         Se desea encontrar alternativas que puedan alivianar el deterioro de la salud mental 
                         que están experimentando muchos costarricenses en la actualidad.
                       </v-card-text>
@@ -53,7 +53,7 @@
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline">¿Qué significa Catarsis?</div>
                       </v-card-title>
-                      <v-card-text>
+                      <v-card-text class="text-xs-center">
                         Una catarsis es un método de desahogo de emociones, 
                         que las personas experimentan al manifestar todos los 
                         sentimientos reprimidos en su interior.
@@ -68,7 +68,7 @@
                       <v-card-title primary-title class="layout justify-center">
                         <div class="headline text-xs-center">Información del proyecto</div>
                       </v-card-title>
-                      <v-card-text>
+                      <v-card-text  class="text-xs-center">
                         Este página fue diseñada y elaborada para el proyecto social
                     del curso CI-1440 Informática y Sociedad y para el proyecto
                     final del curso CI-2413 Desarrollo de aplicaciones para Internet. 
@@ -90,14 +90,6 @@
                     <div class="headline">Esteban Castillo Gamboa</div>
                   </v-card-title>
                   <v-list class="transparent">
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>(+506) 8954-5450</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
                     <v-list-tile>
                       <v-list-tile-action>
                         <v-icon class="blue--text text--lighten-2">place</v-icon>
@@ -123,14 +115,6 @@
                     <div class="headline">Eduardo Solórzano Villalobos</div>
                   </v-card-title>
                   <v-list class="transparent">
-                    <v-list-tile>
-                      <v-list-tile-action>
-                        <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                      </v-list-tile-action>
-                      <v-list-tile-content>
-                        <v-list-tile-title>(+506) 8873-2668</v-list-tile-title>
-                      </v-list-tile-content>
-                    </v-list-tile>
                     <v-list-tile>
                       <v-list-tile-action>
                         <v-icon class="blue--text text--lighten-2">place</v-icon>

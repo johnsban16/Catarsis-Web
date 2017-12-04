@@ -52,7 +52,7 @@
           <v-btn flat v-for="item in menuItems" 
                 :key="item.title"
                 :to="item.link">
-            <v-icon left>{{ item.icon }}</v-icon>
+            <v-icon class="hidden-md-and-down"  left>{{ item.icon }}</v-icon>
             {{ item.title }}
           </v-btn>
           <!-- Botón de logout (responsive menu)-->
@@ -60,7 +60,7 @@
             v-if="userIsAuthenticated"
             flat
             @click="onLogout">
-            <v-icon left>exit_to_app</v-icon>
+            <v-icon class="hidden-md-and-down" left>exit_to_app</v-icon>
             Cerrar sesión
           </v-btn>
 
@@ -91,7 +91,7 @@
         ]
         if(this.userIsAuthenticated){ // Si el usuario está signeado, devolver todo menos registrarse y login más un logout
           menuItems = [
-            {icon: 'question_answer', title: 'Iniciar conversación', link:'/CreateChat'},
+            {icon: 'question_answer', title: 'Iniciar conversación', link:'/Chat/0'},
             {icon: 'accessibility', title: 'Meditaciones guiadas', link:'/Meditations' },
             {icon: 'developer_board', title: 'Diario de pensamiento', link:'/Diary'},
             {icon: 'account_circle', title: 'Mi perfil', link:'/Profile'}

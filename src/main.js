@@ -12,6 +12,7 @@ import AlertCmp from './components/Shared/Alert.vue'
 
 import Aplayer from 'aplayer'
 import VueAplayer from 'vue-aplayer'
+import VueResource from 'vue-resource'
 
 // Cada filtro hay que importarlo
 import DateFilter from './filters/date'
@@ -28,6 +29,7 @@ import VueChatScroll from 'vue-chat-scroll'
 Vue.use(Vuetify)
 Vue.use(VueAplayer)
 Vue.use(VueChatScroll)
+Vue.use(VueResource)
 
 // Definir el filtro acá para usarlo en toda la app
 Vue.filter('date', DateFilter)
