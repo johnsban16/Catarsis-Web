@@ -32,8 +32,8 @@ export const store = new Vuex.Store({
         createUser(state, payload){},
         deleteEntry(state, payload){ // Delete entry del array actual de entrys
             var index = state.loadedEntrys.indexOf(payload.id)
-            console.log(index)
-            state.loadedEntrys.splice(index, 1)
+            console.log(payload.id)
+            state.loadedEntrys.splice(payload.id, 1)
         },
         updateEntry (state, payload) { // El payload es el nuevo data del entry
             const entry = state.loadedEntrys.find(entry => {
