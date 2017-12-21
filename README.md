@@ -1,7 +1,5 @@
 # catarsis
 
-> Web Application Development course final project
-
 ## Build Setup
 
 ``` bash
